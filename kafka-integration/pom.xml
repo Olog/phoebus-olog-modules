@@ -31,7 +31,7 @@
     <dependencies>
         <dependency>
             <groupId>org.phoebus</groupId>
-            <artifactId>olog-es</artifactId>
+            <artifactId>service-olog</artifactId>
             <version>${olog-es.version}</version>
             <scope>compile</scope>
         </dependency>
