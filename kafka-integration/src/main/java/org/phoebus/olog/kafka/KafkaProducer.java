@@ -95,7 +95,7 @@ public class KafkaProducer {
     /**
      * Sends a {@link LogEntryMessage} through the {@link Producer}.
      *
-     * @param logEntryMessage
+     * @param logEntryMessage The {@link LogEntryMessage} to embed in the Kafka stream message.
      */
     public void send(LogEntryMessage logEntryMessage) {
         try {

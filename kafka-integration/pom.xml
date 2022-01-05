@@ -3,10 +3,38 @@
          xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
          xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
     <modelVersion>4.0.0</modelVersion>
-
     <groupId>org.phoebus</groupId>
-    <artifactId>kafka-integration</artifactId>
-    <version>0.0.1-SNAPSHOT</version>
+    <artifactId>olog-kafka-integration</artifactId>
+    <version>1.0.0-SNAPSHOT</version>
+
+    <description>Kafka message dispatcher for Phoebus Olog.</description>
+    <url>https://github.com/Olog/phoebus-olog-modules</url>
+    <licenses>
+        <license>
+            <name>Eclipse Public License 1.0</name>
+            <url>https://www.eclipse.org/legal/epl-v10.html</url>
+        </license>
+    </licenses>
+    <developers>
+        <developer>
+            <name>Kunal Shroff</name>
+            <email>kunalshroff9@gmail.com</email>
+            <organization>Brookhaven National Lab</organization>
+            <organizationUrl>https://github.com/shroffk</organizationUrl>
+        </developer>
+        <developer>
+            <name>Georg Weiss</name>
+            <email>georg.weiss@ess.eu</email>
+            <organization>European Spallation Source</organization>
+            <organizationUrl>https://github.com/georgweiss</organizationUrl>
+        </developer>
+    </developers>
+
+    <scm>
+        <connection>scm:git:git://github.com/Olog/phoebus-olog-modules.git</connection>
+        <developerConnection>scm:git:ssh://github.com/Olog/phoebus-olog-modules.git</developerConnection>
+        <url>https://github.com/Olog/phoebus-olog-modules/tree/master</url>
+    </scm>
 
     <build>
         <plugins>
@@ -19,36 +47,83 @@
                     <target>11</target>
                 </configuration>
             </plugin>
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-source-plugin</artifactId>
+                <version>3.2.0</version>
+                <executions>
+                    <execution>
+                        <id>attach-sources</id>
+                        <goals>
+                            <goal>jar-no-fork</goal>
+                        </goals>
+                    </execution>
+                </executions>
+            </plugin>
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-javadoc-plugin</artifactId>
+                <version>3.1.1</version>
+                <executions>
+                    <execution>
+                        <id>attach-javadocs</id>
+                        <goals>
+                            <goal>jar</goal>
+                        </goals>
+                    </execution>
+                </executions>
+            </plugin>
         </plugins>
     </build>
 
     <properties>
-        <olog-es.version>2.0</olog-es.version>
+        <service-olog.version>2.0.1</service-olog.version>
         <junit.version>4.13.2</junit.version>
+        <kafka-version>2.0.0</kafka-version>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
     </properties>
 
     <dependencies>
         <dependency>
             <groupId>org.phoebus</groupId>
-            <artifactId>olog-es</artifactId>
-            <version>${olog-es.version}</version>
+            <artifactId>service-olog</artifactId>
+            <version>${service-olog.version}</version>
             <scope>compile</scope>
         </dependency>
         <dependency>
             <groupId>org.apache.kafka</groupId>
             <artifactId>kafka-streams</artifactId>
-            <version>2.0.0</version>
+            <version>${kafka-version}</version>
         </dependency>
-
-
         <dependency>
             <groupId>junit</groupId>
             <artifactId>junit</artifactId>
             <version>${junit.version}</version>
             <scope>test</scope>
         </dependency>
-
     </dependencies>
 
+    <profiles>
+        <profile>
+            <id>gpg</id>
+            <build>
+                <plugins>
+                    <plugin>
+                        <groupId>org.apache.maven.plugins</groupId>
+                        <artifactId>maven-gpg-plugin</artifactId>
+                        <version>3.0.1</version>
+                        <executions>
+                            <execution>
+                                <id>sign-artifacts</id>
+                                <phase>verify</phase>
+                                <goals>
+                                    <goal>sign</goal>
+                                </goals>
+                            </execution>
+                        </executions>
+                    </plugin>
+                </plugins>
+            </build>
+        </profile>
+    </profiles>
 </project>
